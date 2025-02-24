@@ -1,22 +1,611 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>travisdowns.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travis Downs | Investor & Builder</title>
+    <style>
+        :root {
+            --primary: #1a2639;
+            --secondary: #3f72af;
+            --accent: #f7b731;
+            --light: #f5f5f5;
+            --text: #333;
+            --light-text: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0 4rem;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(26, 38, 57, 0.9), rgba(26, 38, 57, 0.7));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .hero-text {
+            max-width: 500px;
+        }
+        
+        .hero-tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .about-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .headshot-container {
+            width: 280px;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .headshot-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+        
+        .nav-scrolled {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+        
+        .section-intro {
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+        
+        /* Investing Section */
+        .investing {
+            background-color: var(--light);
+        }
+        
+        .portfolio-container {
+            margin-top: 3rem;
+        }
+        
+        .portfolio-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .portfolio-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 1rem 0.5rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .portfolio-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .portfolio-slider::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .portfolio-slider::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+        
+        .portfolio-item {
+            flex: 0 0 auto;
+            width: 180px;
+            text-align: center;
+        }
+        
+        .portfolio-logo {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .portfolio-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Projects Section */
+        .projects {
+            background-color: white;
+        }
+        
+        .project-list {
+            margin-top: 3rem;
+        }
+        
+        .project-item {
+            padding: 2rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+        }
+        
+        .project-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .project-header h3 {
+            font-size: 1.4rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+        
+        .project-item p {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            max-width: 700px;
+        }
+        
+        .project-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--primary);
+        }
+        
+        .year-tag {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .navbar {
+                padding: 1rem 0;
+            }
+            
+            .nav-links li {
+                margin-left: 1rem;
+            }
+            
+            section {
+                padding: 4rem 0;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text {
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 6rem 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- One day this site may contain something of real substance. -->
-  <h1>Travis Downs</h1>
-  <b>Some of my web projects:</b>
-    <ul>
-      <li><a href="/vanlife-map">Van Life Map</a> – My latest project, built in 2024 using Vue</li>
-      <li><a href="https://web.archive.org/web/20040926050021/http://www.tadzilla.com/">TADZilla.com</a> – An archived copy of my first project, built in 2003 using <i>"Building Web Sites for Dummies"</i></li>
-    </ul>
-  <br/>
-  Professional work is found on <a href="https://www.linkedin.com/in/travis-downs/">LinkedIn</a>.
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  travisdowns.com
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">TD</a>
+            <ul class="nav-links">
+                <li><a href="#investing">Investing</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section (Combined with About) -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Travis Downs</h1>
+                    <p class="hero-tagline">Angel investor and builder based in San Francisco</p>
+                    
+                    <div class="about-content">
+                        <p>Boston born and raised, I now proudly live and work San Francisco. I enjoy skiing in the winter, swimming in the summer, and rooting for the Patriots year-round.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Investing Section -->
+    <section id="investing" class="investing">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Angel Investing</h2>
+                <p>Since 2017, I've been actively investing in good people building good businesses across multiple sectors.</p>
+            </div>
+            
+            <div class="portfolio-container">
+                <div class="portfolio-slider">
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img alt="Truework logo" loading="eager" width="129" height="32" decoding="async" data-nimg="1" class="sc-22f1dc32-2 eEdLBJ" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjkiIGhlaWdodD0iMzIiIGZpbGw9Im5vbmUiIGlkPSJ0cnVld29yay1sb2dvIj4KICA8cGF0aCBmaWxsPSIjMDMyMTI3IiBkPSJNNS4yNCA1aDUuMzc4YzUuNzg4IDAgMTAuNDgxIDQuNzA2IDEwLjQ4MSAxMC41MTF2NS4yMThjMCAyLjkyLTIuMzYgNS4yOS01LjI3NCA1LjI5LTIuOTEyIDAtNS4yNzQtMi4zNjgtNS4yNzQtNS4yOXYtNC41NThhLjY1OC42NTggMCAwIDAtLjY1OC0uNjZINS4yNEMyLjM0NiAxNS41MTEgMCAxMy4xNTcgMCAxMC4yNTYgMCA3LjM1MSAyLjM0NyA1IDUuMjQgNVpNMzIgMTAuMjU0YzAgMi45MDEtMi4zNDYgNS4yNTMtNS4yMzkgNS4yNTNzLTUuMjM5LTIuMzUyLTUuMjM5LTUuMjUzYzAtMi45MDIgMi4zNDYtNS4yNTQgNS4yNC01LjI1NEMyOS42NTMgNSAzMiA3LjM1MiAzMiAxMC4yNTRaTTEyOC4wNiAxMi4yMzZsLTQuNjE0IDQuNDU5IDQuODgzIDcuMTQ3aC0zLjAyNmwtMy43MjMtNS40NS0xLjc3MSAxLjcxM3YzLjczN2gtMi41MDFWNy4zaDIuNTAxdjkuNDE4bDQuNjEzLTQuNDgyaDMuNjM4Wk00MS4zMDQgOS44NDRoMi41djIuMzkyaDIuNTM4djIuMzU2aC0yLjUzN3Y0LjkxM2MwIC43NTUuMTc3IDEuMzAyLjUyMiAxLjYzMi4zNDkuMzMyLjg5NC40NyAxLjY2Ni40MzFsLjM0OS0uMDJ2Mi4zMzdsLS4yOS4wMzNjLS4yMzMuMDMtLjQ2My4wNDMtLjY4Ni4wNDMtMS4wODUgMC0yLjAxOC0uMzI3LTIuNzI4LS45Ni0uODctLjc4LTEuMzM0LTEuOTYtMS4zMzQtMy40MnYtNC45MTNoLTEuNTM4di0yLjM1NmgxLjUzOFY5Ljg0NFpNNDguMDMgMTcuMDM0YzAtMS41OTguNTMzLTIuOTIzIDEuNTM1LTMuODMybC0uMDAzLS4wMDRjMS4wNDUtLjk0MiAyLjU0LTEuMzY3IDQuMjEtMS4xOTZsLjI5NS4wM3YyLjM0NmwtLjM1Mi0uMDI2Yy0xLjA3MS0uMDc2LTEuOTIyLjE1MS0yLjQ2NC42NTktLjQ3Ny40NDgtLjcyIDEuMS0uNzIgMS45NDR2Ni45NmgtMi41di02Ljg4MVpNNjMuMjk0IDE5LjM0N2MwIC42ODItLjI2MyAxLjMxNS0uNzQzIDEuNzg2YTIuNjEgMi42MSAwIDAgMS0xLjkxOS43MzhjLTEuMzA4LS4wMzMtMi4zNjktMS4xNy0yLjM2OS0yLjUzN3YtNy4wOThoLTIuNXY2Ljk2YzAgMy4wMDggMS44MiA0Ljk1NiA0LjYzMyA0Ljk1NiAxLjEwNCAwIDIuMTEtLjM1MyAyLjkwMS0xLjAwNXYuNzdoMi40MjV2LTExLjY4aC0yLjQyNXY3LjExNGwtLjAwMy0uMDA0WiIvPgogIDxwYXRoIGZpbGw9IiMwMzIxMjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTc5LjM2OSAxOC40OTd2LjMzaC05LjI1NGMuMzY4IDIuMDM2IDIuMDE1IDIuOTY1IDMuNDY3IDIuOTY1IDEuMzA4LjA2NiAyLjI2Ny0uNDYxIDIuODcyLTEuNTU1aDIuNjYyYy0uODA5IDIuNDg1LTIuODUzIDMuOTExLTUuNjEzIDMuOTExLTMuNDE3IDAtNi4wOTItMi43NDQtNi4wOTItNi4xMTJzMi42NjUtNi4xMSA1LjkzOC02LjExYzIuOTE4IDAgNi4wMiAyLjMwNCA2LjAyIDYuNTcxWm0tNS45NDEtNC4yOTNjLTEuMTk3LjA2Mi0yLjYxLjg4My0zLjE2OCAyLjM0Nmg2LjMyOWMtLjUzLTEuMzgxLTEuODAxLTIuMzQ3LTMuMTYxLTIuMzQ3WiIgY2xpcC1ydWxlPSJldmVub2RkIi8+CiAgPHBhdGggZmlsbD0iIzAzMjEyNyIgZD0ibTkzLjE1NiAxMi4yMzYtMi4xMzYgNy4zOTEtMi4xMzUtNy4zOWgtMi40MTZsLTIuMTM1IDcuMzktMi4xMzYtNy4zOWgtMi42MTZsMy41ODUgMTEuNjhoMi4zMzZsMi4xMzYtNy41MjkgMi4xMzMgNy41M2gyLjQxNWwzLjU4Mi0xMS42ODJoLTIuNjEzWiIvPgogIDxwYXRoIGZpbGw9IiMwMzIxMjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTk3LjcwNyAxMy42OTNjMS4xMTQtMS4xNCAyLjYxNi0xLjc2NiA0LjIzOS0xLjc2NiAzLjMyOSAwIDUuODgyIDIuNjEgNS45MzggNi4wNzNhNi4xMzQgNi4xMzQgMCAwIDEtMS43NDUgNC4zNjIgNS44NDIgNS44NDIgMCAwIDEtNC4xNzYgMS43ODZoLS4wMTdhNS44NjggNS44NjggMCAwIDEtNC4xNzYtMS43MmMtMS4xMzctMS4xMzctMS43NjUtMi42NjktMS43NjUtNC4zMTMtLjA0LTEuNjguNTY2LTMuMjUyIDEuNzAyLTQuNDIyWm0uODAyIDQuMzQzYzAgMi4xMDUgMS41MDggMy43NTYgMy40MzcgMy43NTYgMS44OTYgMCAzLjQzNy0xLjY0NCAzLjQzNy0zLjc1NnMtMS41NDEtMy44MzMtMy40MzctMy44MzMtMy40MzcgMS43MjctMy40MzcgMy44MzNaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz4KICA8cGF0aCBmaWxsPSIjMDMyMTI3IiBkPSJNMTExLjExMSAxMy4yMDJjLTEuMDAzLjkxLTEuNTM1IDIuMjM0LTEuNTM1IDMuODMydjYuODhoMi41MDF2LTYuOTZjMC0uODQzLjI0My0xLjQ5NS43MTktMS45NDMuNTQzLS41MDggMS4zOTQtLjczNSAyLjQ2NS0uNjZsLjM1MS4wMjd2LTIuMzQ2bC0uMjk1LS4wM2MtMS42Ny0uMTcxLTMuMTY4LjI1NC00LjIxIDEuMTk2bC4wMDQuMDA0WiIvPgo8L3N2Zz4=" style="color: transparent;"></div>
+                        <p class="portfolio-name">Truework</p>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img data-main-image="" style="object-fit: contain; opacity: 1;" width="125px" decoding="async" loading="lazy" alt="Logo" src="https://www.alifehealth.com/static/c13a24732e994a6a6c268b57a2ff14c8/a419a/gradientLogo.png"></div>
+                        <p class="portfolio-name">Alife</p>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125px" src="https://media.licdn.com/dms/image/v2/C4D0BAQH9Aq0E7W0GGw/company-logo_200_200/company-logo_200_200/0/1630556402509/mbx_capital_logo?e=1748476800&amp;v=beta&amp;t=so6NBNWlh8hOnwDaA6d6NJl_ovQj7Vra64lMemfGgPo" loading="lazy" alt="MBX Capital logo" id="ember34" class="evi-image lazy-image ember-view org-top-card-primary-content__logo
+            "></div>
+                        <p class="portfolio-name">MBX Capital</p>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img src="https://becausemarket.com/cdn/shop/files/Because.svg?v=1709160954&amp;width=126" style="object-position: 50.0% 50.0%" loading="eager" width="126" height="40" alt="Because Market logo"></div>
+                        <p class="portfolio-name">Because Market</p>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img loading="lazy" width="125" src="https://cdn.prod.website-files.com/63cc1eef179b054a9306598d/63cc1eef179b051c8e0659d0_EliseAI.svg" alt="" class="simple-logo-black"></div>
+                        <p class="portfolio-name">Meet Elise</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><svg width="126" viewBox="0 0 97 24" fill="none" class="relative -mb-1" xmlns="http://www.w3.org/2000/svg"><path d="M13.7309 11.9912C13.1996 14.7313 10.7886 16.7997 7.89337 16.7997C4.99819 16.7997 2.58712 14.7303 2.05586 11.9912H0V16.6688C0 17.8151 0.929433 18.7445 2.07577 18.7445H13.7099C14.8563 18.7445 15.7857 17.8151 15.7857 16.6688V11.9912H13.7309Z" fill="currentColor"></path><path d="M2.05481 9.71279C2.58607 6.97269 4.99714 4.90426 7.89232 4.90426C10.7875 4.90426 13.1986 6.97374 13.7298 9.71279H15.7846V5.03524C15.7846 3.88891 14.8552 2.95947 13.7089 2.95947H2.07577C0.929433 2.95843 0 3.88786 0 5.03419V9.71174H2.05481V9.71279Z" fill="currentColor"></path><path d="M30.6071 0C31.0497 0 31.5972 0.0524915 31.9883 0.156445V2.37138C31.7279 2.29316 31.3893 2.26743 31.1022 2.26743C29.5912 2.26743 28.5486 2.91894 28.5486 4.6913V5.94183H31.9883V8.23499H28.5486V18.6592H26.1515V8.23499H23.6761V5.94183H26.1515V4.66454C26.1515 1.56342 27.9238 0 30.6081 0L30.6071 0Z" fill="currentColor"></path><path d="M45.0194 12.326C45.0194 16.0529 42.1272 18.9193 38.4528 18.9193C34.7784 18.9193 31.8594 16.0529 31.8594 12.326C31.8594 8.59906 34.7259 5.68115 38.4528 5.68115C42.1797 5.68115 45.0194 8.5476 45.0194 12.326ZM38.4528 16.6261C40.7984 16.6261 42.7005 14.7498 42.7005 12.326C42.7005 9.90209 40.7984 7.97431 38.4528 7.97431C36.1071 7.97431 34.1794 9.87636 34.1794 12.326C34.1794 14.7756 36.0557 16.6261 38.4528 16.6261Z" fill="currentColor"></path><path d="M46.8416 5.94262H49.2654V7.87143C49.9427 6.59414 51.22 5.70898 52.7309 5.70898C53.1477 5.70898 53.5646 5.76148 53.93 5.86543V8.08037C53.5389 7.94965 53.0963 7.87143 52.6794 7.87143C50.7774 7.87143 49.2654 9.27841 49.2654 11.4933V18.66H46.8416V5.94262Z" fill="currentColor"></path><path d="M67.2733 18.6579H64.8762V16.0519C63.9385 17.8757 62.2701 18.9183 60.0295 18.9183C56.5897 18.9183 53.853 15.9737 53.853 12.2993C53.853 8.62485 56.5887 5.68018 60.0295 5.68018C62.2701 5.68018 63.9385 6.7228 64.8762 8.54662V5.94058H67.2733V18.6579ZM60.5235 16.6252C63.0256 16.6252 64.8752 14.8013 64.8752 12.2993C64.8752 9.79716 63.0246 7.97334 60.5235 7.97334C58.0224 7.97334 56.1976 9.87538 56.1976 12.2993C56.1976 14.7231 58.0996 16.6252 60.5235 16.6252Z" fill="currentColor"></path><path d="M69.905 19.4659H72.3021C72.3546 21.0293 74.0477 21.9937 76.0805 21.9937C78.3736 21.9937 80.146 20.5342 80.146 18.3193V15.8172C79.2084 17.5896 77.5399 18.6312 75.2993 18.6312C71.8595 18.6312 69.1228 15.739 69.1228 12.1428C69.1228 8.54662 71.8585 5.68018 75.2993 5.68018C77.5399 5.68018 79.2084 6.7228 80.146 8.4684V5.94058H82.5431V18.2143C82.5431 21.7848 79.8331 23.9997 76.1587 23.9997C73.4744 23.9997 70.0604 22.7749 69.904 19.4659H69.905ZM75.7943 16.443C78.2964 16.443 80.146 14.6192 80.146 12.1428C80.146 9.66644 78.2954 7.86938 75.7943 7.86938C73.2933 7.86938 71.4684 9.77142 71.4684 12.1428C71.4684 14.5142 73.3705 16.443 75.7943 16.443Z" fill="currentColor"></path><path d="M84.3394 12.2474C84.3394 8.57299 87.2059 5.70654 90.8545 5.70654C94.2686 5.70654 96.9786 8.33832 96.9786 11.883L96.9528 12.8217H86.6593C86.8683 15.2188 88.5099 16.8347 90.907 16.8347C92.7051 16.8347 94.1646 15.9228 94.4775 14.5673H96.8489C96.3795 17.2259 93.9299 18.919 90.8813 18.919C87.2069 18.919 84.3404 16.0268 84.3404 12.2474H84.3394ZM94.424 10.9701C94.2675 9.11952 92.7566 7.76503 90.7496 7.76503C88.7425 7.76503 87.2316 8.9641 86.7623 10.9701H94.424Z" fill="currentColor"></path></svg></div>
+                        <p class="portfolio-name">Forage</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://cdn.prod.website-files.com/6758473cd5a853b7cdf42ef2/678548cd9d8238542218b0f9_sunbound%20header%20logo.svg" loading="eager" alt="" class="header__logo_image"></div>
+                        <p class="portfolio-name">Sunbound</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://res.cloudinary.com/dmxgostd9/image/upload/v1/web-assets/orchard-logo-dark.svg" alt="Orchard Logo" class="nav__logo-img"></div>
+                        <p class="portfolio-name">Orchard</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><svg width="125" height="125" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g clip-path="url(#clip0_105_460)"><path d="M42.2157 20.5321C42.6298 23.0583 42.905 25.6051 43.248 28.1661C43.248 28.274 43.3357 28.4662 43.1674 28.4655C34.9754 29.3729 33.8349 29.7142 25.7594 30.7032C26.3091 36.2672 30.1024 50.1207 28.4512 50.3C18.496 51.381 8.89152 53.6148 3.12384 53.9991C3.01696 54.0043 2.98816 53.9785 2.97152 53.8661C2.94592 53.3353 2.92288 52.8012 2.90752 52.2672C2.73024 48.9666 1.19424 38.4689 0.896 32.3028C0.8608 32.0091 1.33952 32.3381 1.24352 31.8786C0.88 25.8281 0.31168 19.795 0 13.7419C13.2077 12.0749 26.663 10.5698 40.0269 9.99976C40.1587 10.003 40.1837 10.0312 40.2029 10.1354C40.4403 11.3075 40.6509 12.4855 40.9069 13.6538C40.9222 13.7239 41.0643 14.1757 41.0675 14.2039C41.1987 15.425 41.6691 16.7745 41.8477 17.9898C41.92 18.6112 42.1613 20.4363 42.2157 20.5321Z" fill="#AAD6EF"></path><path d="M55.0611 18.4351C39.872 18.5733 24.2918 17.1389 9.16224 16.1248C8.36992 23.8269 8.07936 33.2995 7.488 41.1173C7.47968 41.2645 12.2432 41.4913 12.2739 41.6378C21.1251 41.5691 30.016 42.4797 38.784 43.8068C43.4406 44.0298 52.8774 44.2759 57.5546 44.3157L60.5254 44.4488C61.9219 44.3511 61.9891 44.4758 63.0854 44.4713C63.1418 44.4713 63.1718 44.4417 63.1789 44.3761C63.2493 43.6647 63.3069 42.952 63.3619 42.2394C63.6358 34.6902 64.4442 27.0678 63.6986 19.5334C63.6774 19.4402 63.6915 19.2873 63.5853 19.259C60.7597 18.752 57.9315 18.4011 55.0611 18.4351Z" fill="#00AE4F"></path><path d="M22.5735 27.1391C21.1303 27.1391 19.938 27.7689 19.3312 28.8196H19.1226V27.1391C17.9776 27.5029 16.6733 27.5626 15.4503 27.5658V43.639H19.3312V37.095H19.5405C20.1684 37.8302 21.298 38.271 22.5108 38.271C25.3978 38.271 27.4893 35.9395 27.4893 32.7051C27.4893 29.4706 25.3978 27.1391 22.5735 27.1391ZM21.0887 37.4311C19.8336 37.4311 19.3312 36.1921 19.3312 34.2821V31.4448C19.3312 29.3652 19.8548 28.0844 21.1303 28.0844C22.72 28.0844 23.3063 29.9745 23.3063 32.7051C23.3063 35.4357 22.6996 37.4311 21.0887 37.4311Z" fill="black"></path><path d="M46.0595 27.1391C44.8646 27.5189 43.4137 27.5684 42.0851 27.5671V38.0615H46.0595V27.1391Z" fill="black"></path><path d="M52.1735 31.5502C52.1735 31.0252 52.4871 30.7097 53.01 30.7097H56.5658L56.9844 27.1391L55.3108 27.2439C53.7421 27.3493 52.5498 28.5883 52.1748 30.4995H51.9655V27.1391C50.8199 27.508 49.5105 27.5645 48.2004 27.5665V38.0615H52.1773L52.1735 31.5502Z" fill="black"></path><path d="M34.5683 27.1391C31.0541 27.1391 29.2973 28.3364 29.088 31.067L29.0349 31.7809L33.1251 30.9751V30.5001C33.1251 28.337 33.5021 27.56 34.5683 27.56C35.447 27.56 36.0537 28.2528 36.0537 30.0805V32.1807L32.9369 32.7494C29.8009 33.3169 28.5209 34.3669 28.5209 36.0269C28.5209 37.3925 29.8592 38.2762 31.9725 38.2762C34.0429 38.2762 35.4867 37.5204 36.0512 36.176H36.2605V38.0667H39.943V30.8934C39.9456 28.2425 37.9213 27.1391 34.5683 27.1391ZM36.0537 33.2725C36.0537 35.8135 35.3427 37.2209 34.0454 37.2209C33.2294 37.2209 32.7065 36.5282 32.7065 35.4569C32.7065 34.3001 33.6902 32.9994 36.0537 32.6003V33.2725Z" fill="black"></path><path d="M46.0429 21.6522C46.0429 21.6522 44.6246 21.8527 42.0186 22.14V25.6495C44.4346 25.6874 46.0429 25.1617 46.0429 25.1617V21.6522Z" fill="black"></path></g><defs><clipPath id="clip0_105_460"><rect width="64" height="44" fill="white" transform="translate(0 9.99976)"></rect></clipPath></defs></svg></div>
+                        <p class="portfolio-name">Pair Eyewear</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://opalcamera.com//_next/static/media/logo-black.3ec16790.png" alt="logo" style="opacity: 1;" class="transition-opacity duration-200 ease-default"></div>
+                        <p class="portfolio-name">Opal Camera</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="125" viewBox="0 0 125 41" height="full"><g clip-path="url(#logo_svg__a)"><path fill="#5DC6B2" d="M33.664 33.182c2.33-1.699 4.998-6.208 4.742-7.702-.32-1.869-3.472-3.098-3.516-3.688-.063-.857 3.06-.163 4.08-1.568.833-1.146-.031-4.925-1.608-7.864-1.903-3.55-5.052-6.423-6.477-4.757-2.048 2.395-2.676 8.19-9.59 8.673a.35.35 0 0 0-.305.193c-.092.163-.11.402-.007.489 1.337 1.103 6.056 3.681 8.705 14.47.643 2.62 1.922 3.25 3.975 1.754"></path><path fill="#00A7A2" d="M.038 26.928c.305 2.867 2.877 7.432 4.298 7.959 1.778.658 4.42-1.459 4.952-1.2.774.373-1.389 2.73-.682 4.317.575 1.294 4.28 2.435 7.615 2.54 4.025.127 8.088-1.164 7.357-3.23-1.05-2.973-5.753-6.413-2.717-12.642a.35.35 0 0 0-.014-.361c-.095-.162-.293-.297-.419-.251-1.623.607-6.217 3.404-16.883.304-2.591-.753-3.777.04-3.508 2.565"></path><path fill="#A7E2C0" d="M22.268.934C19.632-.235 14.394-.291 13.226.677c-1.458 1.211-.946 4.557-1.436 4.89-.71.483-1.67-2.569-3.398-2.75-1.408-.148-4.249 2.49-6.007 5.325-2.122 3.422-3.035 7.586-.88 7.986 3.098.576 8.43-1.777 12.306 3.968.072.107.162.17.32.168.187-.001.403-.105.426-.237.287-1.71.16-7.086 8.178-14.775 1.948-1.867 1.854-3.29-.468-4.32z"></path><path fill="#424242" d="M72.978 11.825h4.176V10h-4.176V7.92l4.859-.002V6.094h-7.143v9.94h7.288V14.21h-5.004zM100.087 12.4l-4.53-6.306h-2.003v9.94h2.014V9.703l4.53 6.333h.057c.621.002 1.037 0 1.315 0 .377 0 .504.003.55 0h.068V6.094h-2.001zM84.4 11.825h4.176V10H84.4V7.92l4.859-.002-.001-1.824h-7.142v9.94h7.288V14.21H84.4zM65.087 10.631q-.645-.315-1.65-.66a13 13 0 0 1-1.086-.392 2.1 2.1 0 0 1-.652-.426.85.85 0 0 1-.255-.625q0-.248.138-.44a.87.87 0 0 1 .385-.296q.247-.103.563-.103c.495 0 .93.073 1.506.307.577.234 1.282.662 1.282.662l.83-1.687a8.4 8.4 0 0 0-1.618-.73c-.477-.16-1.226-.284-2.055-.284-.63 0-1.196.12-1.718.358a3 3 0 0 0-1.244 1.01q-.461.653-.46 1.492 0 .962.468 1.574.466.612 1.127.942.66.33 1.677.688.687.233 1.08.405.39.172.631.42.24.248.24.604 0 .29-.15.516a1 1 0 0 1-.433.35 2 2 0 0 1-.647.139 4.9 4.9 0 0 1-1.676-.3c-.877-.276-1.523-.838-1.523-.838l-.917 1.618c.778.755 2.57 1.238 4.097 1.238a4.65 4.65 0 0 0 1.849-.357 3 3 0 0 0 1.312-1.052q.482-.694.482-1.644 0-.976-.468-1.573a3.2 3.2 0 0 0-1.113-.914zM65.337 28.615l-4.051-.02v-3.886h-2.27v9.94h2.27l.026-4.208 4.051.02v4.188h2.284v-9.94h-2.284zM122.691 28.615l-4.052-.02v-3.886h-2.271v9.94h2.271l.027-4.208 4.051.02v4.188H125v-9.94h-2.283zM98.144 24.709h-2.285v9.94h6.669v-1.825l-4.385-.02zM104.246 26.534l3.06.02v8.095h2.279l.027-8.115h3.054V24.71h-8.42zM74.45 30.44h4.175v-1.826H74.45v-2.08h4.858v-1.825h-7.142v9.94h7.288v-1.825H74.45zM90.029 34.65h2.307l-3.725-9.941h-2.222l-3.725 9.94h2.092s.57-1.512.577-1.539l.253-.685h3.632l.809 2.225zm-2.615-7.19 1.165 3.204h-2.344z"></path></g><defs><clipPath id="logo_svg__a"><path fill="#fff" d="M0 0h125v40.551H0z"></path></clipPath></defs></svg></div>
+                        <p class="portfolio-name">Seen Health</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><svg xmlns="http://www.w3.org/2000/svg" width="125" viewBox="0 0 971.997 180.498" class="UniversalNavbarExpanded_logo__TZ9y5"><title>Ethos Logo</title><path d="M184.573 2.845v29.202h58.416v146.028h29.202V32.047h58.41V2.845H184.573zM0 2.845v175.23h129.318v-29.208H29.202v-43.806h86.988V75.859H29.202V32.047h100.116V2.845H0zm505.833 0v73.014h-87.612V2.845h-29.208v175.23h29.208v-73.014h87.612v73.014h29.202V2.845h-29.202zm252.688 16.523a63.8 63.8 0 0 0-90.228 0c-3.6 3.606-11.1 12.036-13.662 16.188a63.725 63.725 0 0 1 87.894 87.378l.984-.984c4.272-2.592 11.322-8.664 15.012-12.354a63.8 63.8 0 0 0 0-90.228" fill="#054742"></path><path d="M650.356 127.535c-25.068-25.068-40.422-71.178-12.132-119.922L625 20.837a93.374 93.374 0 0 0 132.054 132.048l13.224-13.224c-46.422 26.988-92.616 15.18-119.922-12.126m251.813 53.175c42.42 0 69.828-21.018 69.828-53.55 0-30.5-21.438-41.532-56.034-49.428l-21.192-4.65c-19.08-4.218-29.424-9.12-29.424-22.944 0-14.094 13.134-23.2 33.462-23.2 18.966 0 35.658 7.044 45.942 19.362l22.008-17.69C954.645 15.51 933.273.21 899.583.21c-38.064 0-65.694 21.648-65.694 51.48 0 34.044 27.87 44.436 52.152 49.686l23.52 5.172c18.594 4.038 30.978 9.576 30.978 23.454 0 14.916-13.422 23.46-36.816 23.46-25.518 0-44.808-12.534-52.89-25.17l-24.15 17.388c12.438 17.046 38.64 35.028 75.486 35.028" fill="#054742"></path></svg></div>
+                        <p class="portfolio-name">Ethos Life</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" sizes="(max-width: 479px) 36vw, (max-width: 767px) 23vw, (max-width: 991px) 18vw, 150px" srcset="https://cdn.prod.website-files.com/6217f187c0aef4f0b3d51741/622b608ae6ce8be85cb9d60d_RizeLogo-p-500.png 500w, https://cdn.prod.website-files.com/6217f187c0aef4f0b3d51741/622b608ae6ce8be85cb9d60d_RizeLogo-p-800.png 800w, https://cdn.prod.website-files.com/6217f187c0aef4f0b3d51741/622b608ae6ce8be85cb9d60d_RizeLogo-p-1080.png 1080w, https://cdn.prod.website-files.com/6217f187c0aef4f0b3d51741/622b608ae6ce8be85cb9d60d_RizeLogo.png 1859w" src="https://cdn.prod.website-files.com/6217f187c0aef4f0b3d51741/622b608ae6ce8be85cb9d60d_RizeLogo.png" loading="lazy" alt="Rize logo" class="image contain"></div>
+                        <p class="portfolio-name">Rize</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://media.licdn.com/dms/image/v2/C560BAQFfBAHp8kfX8g/company-logo_200_200/company-logo_200_200/0/1672873256386/nabishq_logo?e=1748476800&amp;v=beta&amp;t=KzkPBaasRH7Oo_nST4H5s0UaDjPAne8b9ohg7IPO7ZM" loading="lazy" alt="NABIS logo" id="ember36" class="evi-image lazy-image ember-view org-top-card-primary-content__logo
+            "></div>
+                        <p class="portfolio-name">Nabis</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img decoding="async" width="125" sizes="142.6087px" srcset="https://framerusercontent.com/images/dNzu7qrhqpU5ewnuj0ehF27g.png?scale-down-to=512 512w,https://framerusercontent.com/images/dNzu7qrhqpU5ewnuj0ehF27g.png?scale-down-to=1024 1024w,https://framerusercontent.com/images/dNzu7qrhqpU5ewnuj0ehF27g.png 1639w" src="https://framerusercontent.com/images/dNzu7qrhqpU5ewnuj0ehF27g.png" alt="" style="display: block; border-radius: inherit; object-position: center center; object-fit: contain;"></div>
+                        <p class="portfolio-name">Caspian Trade</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://media.licdn.com/dms/image/v2/D4E0BAQFqDKYHdrYpLA/company-logo_200_200/company-logo_200_200/0/1729192599804/scrn_dot_co_logo?e=1748476800&amp;v=beta&amp;t=nX0bzdKPFVyelTV9TgOO_wTouh-EfF3GNDKD9RvgcnA" loading="lazy" alt="SCRN logo" id="ember33" class="evi-image lazy-image ember-view org-top-card-primary-content__logo
+            "></div>
+                        <p class="portfolio-name">SCRN</p>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-logo"><img width="125" src="https://media.licdn.com/dms/image/v2/C4D0BAQFvJuVXdjmwiA/company-logo_200_200/company-logo_200_200/0/1630536568700/andreessen_horowitz_logo?e=1748476800&amp;v=beta&amp;t=34hbtz_h0uZs947fHr-H9W1Igdyx9oFbt74OY3xZd5U" loading="lazy" alt="Andreessen Horowitz logo" id="ember35" class="evi-image lazy-image ember-view org-top-card-primary-content__logo
+            "></div>
+                        <p class="portfolio-name">Andreesen Horowitz</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Personal Projects</h2>
+                <p>Ever since getting "Building a Web Site for Dummies" for Christmas when I was 10, I've had an interest and passion for projects. Here are some highlights from over the years:</p>
+            </div>
+            
+            <div class="project-list">
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Van Life Map</h3>
+                        <span class="year-tag">2024</span>
+                    </div>
+                    <p>Visualizing my sister and brother-in-law's two years of living in a Van. My first project built using Vue.js.</p>
+                    <a href="https://travisdowns.com/vanlife-map" class="project-link">View project →</a>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Nom Nom Nom That's The Bomb Dot Com</h3>
+                        <span class="year-tag">2022</span>
+                    </div>
+                    <p>My future food blog featuring recipes, restaurant reviews, and culinary adventures. The first thing I had ChatGPT build.</p>
+                    <a href="https://www.nomnomnomthatsthebomb.com" class="project-link">View project →</a>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>TADZilla.com</h3>
+                        <span class="year-tag">2003</span>
+                    </div>
+                    <p>An archived copy of my first website project, built using "Building a Web Site for Dummies." A nostalgic look at where it all began.</p>
+                    <a href="https://web.archive.org/web/20040926050021/http://www.tadzilla.com/" class="project-link">View project →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#investing">Investing</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+            <p class="copyright">&copy; 2025 Travis Downs. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple script to change navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
